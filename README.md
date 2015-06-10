@@ -1,2 +1,2 @@
-# mycatshop
-一个react项目
+# ReactFromebuilder
+使用react + reflux +  es来重写[Fromebuilder](http://dobtco.github.io/formbuilder/)项目
