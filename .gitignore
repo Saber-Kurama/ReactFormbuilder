@@ -1,0 +1,4 @@
+node_modules/
+build/
+packagebf.json
+.DS_Store
