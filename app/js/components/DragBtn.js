@@ -44,7 +44,7 @@ let DragBtn = React.createClass({
 		return (
 			connectDragSource(
 				<a data-field-type={name} className="fb-button ui-draggable">{name}</a>
-			)			
+			)
 		);
 	}
 

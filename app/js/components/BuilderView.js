@@ -5,18 +5,13 @@ import RightView from './RightView';
 import AppStore from '../stores/AppStore';
 
 let BuilderView = React.createClass({
-	getInitialState: function() {
-		AppStore.getBootstrapData();
-		console.log(AppStore.getBootstrapData());
-		return AppStore.getBootstrapData();
-	},
 	render : function(){
 		let { inputFields } = this.props;
 		//let inputFields = {};
 		return (
 			<div>
 				<LeftView inputFields = {inputFields} />
-				<RightView {...this.state}/>
+				<RightView />
 				<div className='fb-clear'></div>
 			</div>
 		);

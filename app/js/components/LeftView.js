@@ -4,7 +4,7 @@ import Reflux from 'reflux';
 import AddFieldTabView from './AddFieldTabView';
 import EditFieldView from './EditFieldView';
 import AppActions from '../actions/AppActions';
-import AppStore  from '../stores/AppStore';
+import AppStore from '../stores/AppStore';
 
 
 let LeftView = React.createClass({

@@ -4,7 +4,7 @@ import DragBtn from './DragBtn';
 
 let AddFieldTabView = React.createClass({
 	propTypes:{
-		
+
 	},
 	render : function(){
 		let buttons = [];
