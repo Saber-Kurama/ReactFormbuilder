@@ -2,6 +2,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 import AppActions from '../actions/AppActions';
+import FBConst from './FBConst';
 
 let AppStore = Reflux.createStore({
 	data:{
@@ -16,7 +17,7 @@ let AppStore = Reflux.createStore({
 				"required": true,
 				"field_options": {},
 				"cid": "c6"
-			}		
+			}
 		]
 	},
 	init:function(){
@@ -28,8 +29,17 @@ let AppStore = Reflux.createStore({
 	onGetCurrentEdit:function(){
 		this.trigger(this.data);
 	},
-	onCreateAndShowEditView:function(){
+	onCreateAndShowEditView:function(viewid){
 		this.data.currentEdit.isEdit = true;
+		this.trigger(this.data);
+	},
+	onCreate:function(type){
+      	let newdata = {};
+		newdata[FBConst.mappings.LABEL] = 'Untitled';
+		newdata[FBConst.mappings.FIELD_TYPE] = type;
+		newdata[FBConst.mappings.REQUIRED] = true;
+		newdata['field_options'] = {};
+		this.data.bootstrapData.push(newdata);
 		this.trigger(this.data);
 	}
 });

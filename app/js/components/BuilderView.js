@@ -2,7 +2,6 @@
 import React from 'react';
 import LeftView from './LeftView';
 import RightView from './RightView';
-import AppStore from '../stores/AppStore';
 
 let BuilderView = React.createClass({
 	render : function(){
@@ -11,7 +10,7 @@ let BuilderView = React.createClass({
 		return (
 			<div>
 				<LeftView inputFields = {inputFields} />
-				<RightView />
+				<RightView {...this.state}/>
 				<div className='fb-clear'></div>
 			</div>
 		);

@@ -9,7 +9,6 @@ let AddFieldTabView = React.createClass({
 	render : function(){
 		let buttons = [];
 		for (let keyvalue in this.props.inputFields){
-			console.log(keyvalue);
 			buttons.push(
 				<DragBtn name={keyvalue} />
 			);

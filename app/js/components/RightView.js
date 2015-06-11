@@ -29,7 +29,6 @@ let RightView = React.createClass({
 		AppActions.getAll();
 	},
 	render : function(){
-		console.log(this.props);
 		let nodatahtml = (<div className='fb-no-response-fields'>No response fields</div>);
 		if(this.state.bootstrapData.length > 0){
 			nodatahtml = "";

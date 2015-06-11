@@ -15,7 +15,6 @@ let LeftView = React.createClass({
 		};
 	},
 	onStatusChange:function(data){
-		console.log(data);
 		this.setState({
 			isEdit: data.currentEdit.isEdit
 		});

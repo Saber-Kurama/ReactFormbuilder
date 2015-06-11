@@ -3,6 +3,7 @@ import Reflux from 'reflux';
 let AppActions = Reflux.createActions([
     'createAndShowEditView',
     'getCurrentEdit',
-    'getAll'
+    'getAll',
+    'create'
 ]);
 export default AppActions;

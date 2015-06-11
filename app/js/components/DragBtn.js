@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ItemTypes from './ItemTypes';
 import { DragSource } from 'react-dnd';
+import AppActions from '../actions/AppActions';
 const boxSource = {
   beginDrag(props) {
     return {
@@ -13,7 +14,8 @@ const boxSource = {
     const dropResult = monitor.getDropResult();
 
     if (dropResult) {
-      window.alert(`You dropped ${item.name} into ${dropResult.name}!`);
+      //window.alert(`You dropped ${item.name} into ${dropResult.name}!`);
+      AppActions.create(item.name);
     }
   }
 };
@@ -39,8 +41,6 @@ let DragBtn = React.createClass({
 	render: function() {
 		const { isDragging, connectDragSource } = this.props;
 		const { name } = this.props;
-		console.log(this.props.name);
-		console.log(name);
 		return (
 			connectDragSource(
 				<a data-field-type={name} className="fb-button ui-draggable">{name}</a>

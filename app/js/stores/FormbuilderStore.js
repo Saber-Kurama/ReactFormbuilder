@@ -1,5 +1,5 @@
 'use strict';
-import Reflux from 'Reflux';
+import Reflux from 'reflux';
 let FormbuilderStore = Reflux.createStore({
 	fields:{},
 	inputFields:{},
