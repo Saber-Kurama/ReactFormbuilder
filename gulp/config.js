@@ -13,8 +13,12 @@ const images = {
 }
 // 先实现css的拷贝
 const copycss = {
-	src:"app/css/*.css",
+	src:["app/css/*.css",'node_modules/bootstrap/dist/css/bootstrap.css','node_modules/font-awesome/css/font-awesome.css'],
 	dest:"build/css/"
+}
+const copyfonts = {
+	src:['node_modules/bootstrap/dist/fonts/*.*','node_modules/font-awesome/fonts/*.*'],
+	dest:"build/fonts/"
 }
 const styles = {
 	src:"app/scss/*.scss",
@@ -35,7 +39,7 @@ const browser = {
 
 export default {
     serverport,
-    views,images,copycss,styles,bundle,
+    views,images,copycss,copyfonts,styles,bundle,
     browser,
     distroot
 }

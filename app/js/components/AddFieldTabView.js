@@ -1,7 +1,8 @@
 'use strict';
 import React, { PropTypes }from 'react';
 import DragBtn from './DragBtn';
-
+import DragLayoutBtn from './DragLayoutBtn';
+ 
 let AddFieldTabView = React.createClass({
 	propTypes:{
 
@@ -13,13 +14,21 @@ let AddFieldTabView = React.createClass({
 				<DragBtn name={keyvalue} />
 			);
 		}
+		let layoutButtons = [];
+		this.props.layoutFields.map((layout)=>{
+			layoutButtons.push(
+				<DragLayoutBtn name={layout} />
+			);
+		});
 		return (
 			<div className='fb-add-field-types'>
 				<div className='section'>
-					{buttons}
+					{layoutButtons}
 				</div>
 				<div className='section'>
+					{buttons}
 				</div>
+				
 			</div>
 		);
 	}

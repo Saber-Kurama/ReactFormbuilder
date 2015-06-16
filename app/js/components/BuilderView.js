@@ -7,9 +7,10 @@ let BuilderView = React.createClass({
 	render : function(){
 		let { inputFields } = this.props;
 		//let inputFields = {};
+		let layoutFields = ['layout'];
 		return (
 			<div>
-				<LeftView inputFields = {inputFields} />
+				<LeftView inputFields = {inputFields} layoutFields = {layoutFields} />
 				<RightView {...this.state}/>
 				<div className='fb-clear'></div>
 			</div>

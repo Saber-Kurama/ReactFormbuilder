@@ -12,12 +12,58 @@ let AppStore = Reflux.createStore({
 		},
 		bootstrapData:[
 			{
-				"label": "Please enter your clearance number",
-				"field_type": "text",
-				"required": true,
-				"field_options": {},
-				"cid": "c6"
+				type:'row',
+				columns:[
+					{
+						type:'column',
+						fields:[
+							{
+								'label': 'Please enter your clearance number',
+								'field_type': 'text',
+								'required': true,
+								'field_options': {},
+								'cid': 'c6'
+							}
+						]
+					}
+				]
+			},
+			{
+				type:'row',
+				columns:[
+					{
+						type:'column',
+						fields:[
+							{
+								'label': 'Please enter your clearance number',
+								'field_type': 'text',
+								'required': true,
+								'field_options': {},
+								'cid': 'c6'
+							}
+						]
+					},
+					{
+						type:'column',
+						fields:[
+							{
+								'label': 'Please enter your clearance number',
+								'field_type': 'text',
+								'required': true,
+								'field_options': {},
+								'cid': 'c6'
+							}
+						]
+					}
+				]
 			}
+			// {
+			// 	'label': 'Please enter your clearance number',
+			// 	'field_type': 'text',
+			// 	'required': true,
+			// 	'field_options': {},
+			// 	'cid': 'c6'
+			// }
 		]
 	},
 	init:function(){

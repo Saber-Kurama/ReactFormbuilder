@@ -47,7 +47,7 @@ let LeftView = React.createClass({
 
 				<div className='fb-tab-content'>
 					<div className={addfieldclass} id='addField'>
-						<AddFieldTabView inputFields = {this.props.inputFields}/>
+						<AddFieldTabView inputFields = {this.props.inputFields} layoutFields = {this.props.layoutFields}/>
 					</div>
 					<div className={editfieldclass} id='editField'>
 						<div className='fb-edit-field-wrapper'>
