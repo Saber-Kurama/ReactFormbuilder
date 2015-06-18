@@ -35,7 +35,7 @@ function collect(connect, monitor) {
 let DragBtn = React.createClass({
 	propTypes:{
 		connectDragSource: PropTypes.func.isRequired,
-		//isDragging: PropTypes.bool.isRequired,
+		isDragging: PropTypes.bool.isRequired,
 		name: PropTypes.string.isRequired
 	},
 	render: function() {

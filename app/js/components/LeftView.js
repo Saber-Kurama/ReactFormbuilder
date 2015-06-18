@@ -5,19 +5,34 @@ import AddFieldTabView from './AddFieldTabView';
 import EditFieldView from './EditFieldView';
 import AppActions from '../actions/AppActions';
 import AppStore from '../stores/AppStore';
+import FormbuilderStore from '../stores/FormbuilderStore';
 
 
 let LeftView = React.createClass({
-	mixins: [Reflux.listenTo(AppStore,'onStatusChange')],
+	propTypes:{
+
+	},
+	mixins: [Reflux.listenTo(AppStore, 'onStatusChange'), Reflux.listenTo(FormbuilderStore, 'getCommons')],
 	getInitialState:()=>{
 		return {
-			isEdit:false
+			isEdit:false,
+			inputFields:[],
+			view:null
 		};
 	},
 	onStatusChange:function(data){
 		this.setState({
-			isEdit: data.currentEdit.isEdit
+			isEdit: data.currentEdit.isEdit,
+			view:data.currentEdit.view
 		});
+	},
+	getCommons:function(data){
+		this.setState({
+			inputFields:data
+		});
+	},
+	componentWillMount: function() {
+		AppActions.getCommons();
 	},
 	componentDidMount: function() {
 		AppActions.getCurrentEdit();
@@ -47,11 +62,11 @@ let LeftView = React.createClass({
 
 				<div className='fb-tab-content'>
 					<div className={addfieldclass} id='addField'>
-						<AddFieldTabView inputFields = {this.props.inputFields} layoutFields = {this.props.layoutFields}/>
+						<AddFieldTabView inputFields = {this.state.inputFields} />
 					</div>
 					<div className={editfieldclass} id='editField'>
 						<div className='fb-edit-field-wrapper'>
-							<EditFieldView />
+							<EditFieldView view={this.state.view}/>
 						</div>
 					</div>
 				</div>

@@ -5,7 +5,9 @@ import AppActions from '../actions/AppActions';
 const boxSource = {
   beginDrag(props) {
     return {
-      name: props.name
+      name: props.name,
+      type:props.type,
+      code:props.code
     };
   },
 
@@ -15,7 +17,7 @@ const boxSource = {
 
     if (dropResult) {
       //window.alert(`You dropped ${item.name} into ${dropResult.name}!`);
-      AppActions.create(item.name);
+      AppActions.addRow(item);
     }
   }
 };
@@ -40,7 +42,7 @@ let DragLayoutBtn = React.createClass({
 	},
 	render: function() {
 		const { isDragging, connectDragSource } = this.props;
-		const { name } = this.props;
+		const { name, columns} = this.props;
 		return (
 			connectDragSource(
 				<a data-field-type={name} className="fb-button ui-draggable">{name}</a>

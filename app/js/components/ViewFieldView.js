@@ -25,7 +25,7 @@ let ViewFieldView = React.createClass({
 			</div>
 		);
 		return (
-			<div className='fb-field-wrapper response-field-text' key = {this.props.cid}>
+			<div className='fb-field-wrapper' >
 				<div className='subtemplate-wrapper' onClick={this.focusEditView}>
 					<div className='cover'></div>
 					{label}
@@ -36,7 +36,8 @@ let ViewFieldView = React.createClass({
 			</div>
 		);
 	},
-	focusEditView:function(){
+	focusEditView:function(event){
+		event.stopPropagation();
 		AppActions.createAndShowEditView();
 	}
 });

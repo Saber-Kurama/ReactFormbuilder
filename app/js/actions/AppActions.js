@@ -4,6 +4,8 @@ let AppActions = Reflux.createActions([
     'createAndShowEditView',
     'getCurrentEdit',
     'getAll',
-    'create'
+    'create',
+    'addRow',
+    'getCommons'
 ]);
 export default AppActions;
