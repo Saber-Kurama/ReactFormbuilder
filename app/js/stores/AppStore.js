@@ -38,7 +38,9 @@ let AppStore = Reflux.createStore({
 								'label': 'Please enter your clearance number',
 								'field_type': 'text',
 								'required': true,
-								'field_options': {},
+								'field_options': {
+
+								},
 								'cid': 'c6'
 							}
 						]
@@ -144,9 +146,27 @@ let AppStore = Reflux.createStore({
 		this.data.bootstrapData.push(row);
 		this.trigger(this.data);
 	},
+	// editview 属性发生改变
+	onChangeView:function(view){
+		console.log('action onChangeView');
+		console.log(view);
+		this.data.currentEdit.view = view;
+		let oldview = this.findViewByCid(view.cid);
+		oldview = view;
+		this.trigger(this.data);
+	},
 	// 根据 布局 组件来创建 列组件（临时创建的，不存数据库中的，辅助布局组件）的属性
 	createColumns:function(row){
-		let cols = row.properties.cols.split(',');
+		let colsstr = '12';
+		let rowprops = {};
+		for(let p = 0; p < row.properties.length; p++){
+			if(row.properties[p].codestr === 'cols'){
+				colsstr = row.properties[p].defaultvalue;
+			}else{
+				rowprops[row.properties[p].codestr] = row.properties[p].defaultvalue;
+			}
+		}
+		let cols = colsstr.split(',');
 		row.columns = [];
 		for(let i = 0; i < cols.length; i++){
 			let column = {
@@ -154,22 +174,36 @@ let AppStore = Reflux.createStore({
 				properties:{},
 				fields:[]
 			};
-			// 列组件 的属性复制
-			column.properties.minheight = row.properties.minheight;
+			// 列组件 的属性复制 这两句式硬编码   目前先这样  因为行和列的 属性的关系还没有考虑太多
+			column.properties.minheight = rowprops.minheight;
 			column.properties.col = parseInt(cols[i]);
 			row.columns.push(column);
 		}
 	},
 	// 根据 cid 查找相应地view或者grid
 	findViewByCid:function(cid){
-		// 先做 全部遍历  后面可以修改 row 的cid 以row 开始 组件的cid以所属的row地id开始
+		// 先做 全部遍历 后面可以修改 row 的cid 以row开头 组件的cid以所属的row地id开始
 		let view = null;
 		for(let i = 0; i < this.data.bootstrapData.length; i++){
-			let isfind = false;
+			//let isfind = false;
 			if(this.data.bootstrapData[i].cid === cid){
 				view = this.data.bootstrapData[i];
-				isfind = true;
+				//isfind = true;
+				return view;
+			}else{
+				for(let c = 0; c < this.data.bootstrapData[i].columns.length; c++){
+					for(let f = 0; f < this.data.bootstrapData[i].columns[c].fields.length; f++){
+						if(this.data.bootstrapData[i].columns[c].fields[f].cid === cid){
+							view = this.data.bootstrapData[i].columns[c].fields[f];
+							//isfind = true;
+							return view;
+						}
+					}
+				}
 			}
+			// if(isfind){
+			// 	break;
+			// }
 		}
 		return view;
 	}

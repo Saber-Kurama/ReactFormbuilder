@@ -6,6 +6,7 @@ let AppActions = Reflux.createActions([
     'getAll',
     'create',
     'addRow',
-    'getCommons'
+    'getCommons',
+    'changeView'
 ]);
 export default AppActions;

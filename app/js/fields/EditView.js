@@ -1,20 +1,7 @@
-'use strict';
-import FormbuilderStore from '../stores/FormbuilderStore';
-import FBConst from '../stores/FBConst';
 import React from 'react/addons';
-/**
-	一列布局组件
-*/
-let Row1View = React.createClass({
-	render:function(){
-		let inputClassName = 'rf-size-' + this.props[FBConst.mappings.SIZE];
-		return (<input type='text' className={inputClassName} />);
-	}
-});
-/**
-	一列布局 编辑 视图
-*/
-let Row1EditView = React.createClass({
+
+let EditView = React.createClass({
+
 	mixins:[React.addons.LinkedStateMixin],
 	getInitialState: function() {
 		let stateobj = {};
@@ -64,9 +51,7 @@ let Row1EditView = React.createClass({
 	saber:function(){
 		console.log('saber');
 	}
-});
-FormbuilderStore.registerField('row1', {
-	View: Row1View,
-	Edit: Row1EditView
+
 });
 
+export default  EditView;

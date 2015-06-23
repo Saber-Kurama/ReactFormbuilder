@@ -66,7 +66,7 @@ let LeftView = React.createClass({
 					</div>
 					<div className={editfieldclass} id='editField'>
 						<div className='fb-edit-field-wrapper'>
-							<EditFieldView view={this.state.view}/>
+							<EditFieldView view={this.state.view} changeView={this.changeView}/>
 						</div>
 					</div>
 				</div>
@@ -82,6 +82,10 @@ let LeftView = React.createClass({
 		this.setState({
 			isEdit:true
 		});
+	},
+	changeView:function(view){
+		console.log('修改了view对象');
+		AppActions.changeView(view);
 	}
 });
 export default LeftView;

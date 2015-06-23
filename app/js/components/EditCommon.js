@@ -6,8 +6,8 @@ let EditCommon = React.createClass({
 	render : function(){
 		return (
 			<div>
-				<div className='fb-edit-section-header'>Label</div>
-
+				<div className='fb-edit-section-header'>Label33</div>
+232323
 				<div className='fb-common-wrapper'>
 					<div className='fb-label-description'>
 					</div>

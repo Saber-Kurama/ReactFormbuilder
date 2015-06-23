@@ -8,7 +8,7 @@ const commonlist = [{
 	name:'布局',
 	ordernum:0,
 	parentelemen:'root',
-	properties:{},
+	properties:[],
 	showhide:1,
 	type:'row',
 	viewitems:[{
@@ -22,10 +22,24 @@ const commonlist = [{
 		parentelemen:'root',
 		showhide:1,
 		type:'row',
-		properties:{
-			minheight:80,
-			cols:'12'
-		}
+		properties:[
+			{
+				name:'最小高度',
+				valuetype:'文本',
+				labletext:'样式',
+				codestr:'minheight',
+				scope:0,
+				defaultvalue:80
+			},
+			{
+				name:'列值',
+				valuetype:'文本',
+				labletext:'样式',
+				codestr:'cols',
+				scope:0,
+				defaultvalue:'12'
+			}
+		]
 	}, {
 		id:'001-2',
 		code:'row2',
@@ -37,10 +51,24 @@ const commonlist = [{
 		parentelemen:'root',
 		showhide:1,
 		type:'row',
-		properties:{
-			minheight:80,
-			cols:'6,6'
-		}
+		properties:[
+			{
+				name:'最小高度',
+				valuetype:'文本',
+				labletext:'样式',
+				codestr:'minheight',
+				scope:0,
+				defaultvalue:80
+			},
+			{
+				name:'列值',
+				valuetype:'文本',
+				labletext:'样式',
+				codestr:'cols',
+				scope:0,
+				defaultvalue:'6,6'
+			}
+		]
 	}]
 
 }, {
@@ -52,7 +80,7 @@ const commonlist = [{
 	name:'组件',
 	ordernum:0,
 	parentelemen:'root',
-	properties:{},
+	properties:[],
 	showhide:1,
 	type:'row',
 	viewitems:[{
@@ -66,10 +94,24 @@ const commonlist = [{
 		parentelemen:'',
 		showhide:1,
 		type:'row',
-		properties:{
-			minheight:80,
-			cols:'12'
-		}
+		properties:[
+			{
+				name:'最小高度',
+				valuetype:'文本',
+				labletext:'样式',
+				codestr:'minheight',
+				scope:0,
+				defaultvalue:80
+			},
+			{
+				name:'列值',
+				valuetype:'文本',
+				labletext:'样式',
+				codestr:'cols',
+				scope:0,
+				defaultvalue:'6,6'
+			}
+		]
 	}]
 
 }];
