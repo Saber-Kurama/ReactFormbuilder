@@ -19,7 +19,7 @@ let Grid = React.createClass({
 		);
 	},
 	focusEditView:function(event){
-		console.log('布局点解');
+		console.log('布局点解111');
 		event.stopPropagation();
 		AppActions.createAndShowEditView(this.props.cid);
 	}
