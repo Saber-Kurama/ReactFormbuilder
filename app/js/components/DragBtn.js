@@ -5,7 +5,9 @@ import AppActions from '../actions/AppActions';
 const boxSource = {
   beginDrag(props) {
     return {
-      name: props.name
+      name: props.name,
+      type:props.type,
+      code:props.code
     };
   },
 
@@ -15,7 +17,7 @@ const boxSource = {
 
     if (dropResult) {
       //window.alert(`You dropped ${item.name} into ${dropResult.name}!`);
-      AppActions.create(item.name);
+      AppActions.create(item, dropResult);
     }
   }
 };

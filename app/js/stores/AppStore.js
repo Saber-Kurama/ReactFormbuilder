@@ -3,6 +3,7 @@ import Reflux from 'reflux';
 import AppActions from '../actions/AppActions';
 import FBConst from './FBConst';
 import FormbuilderStore from './FormbuilderStore';
+import _ from 'lodash';
 
 let AppStore = Reflux.createStore({
 	data:{
@@ -38,8 +39,18 @@ let AppStore = Reflux.createStore({
 								'label': 'Please enter your clearance number',
 								'field_type': 'text',
 								'required': true,
-								'field_options': {
-
+								id:'002-1',
+								code:'text',
+								htmltemplate:'',
+								icon:'',
+								ilevel:'',
+								name:'文本框',
+								ordernum:0,
+								parentelemen:'',
+								showhide:1,
+								type:'compont',
+								'properties': {
+									textvalue:'sa'
 								},
 								'cid': 'c6'
 							}
@@ -77,14 +88,38 @@ let AppStore = Reflux.createStore({
 								'label': 'Please enter your clearance number',
 								'field_type': 'text',
 								'required': true,
-								'field_options': {},
+								id:'002-1',
+								code:'text',
+								htmltemplate:'',
+								icon:'',
+								ilevel:'',
+								name:'文本框',
+								ordernum:0,
+								parentelemen:'',
+								showhide:1,
+								type:'compont',
+								'properties': {
+
+								},
 								'cid': 'c61'
 							},
 							{
 								'label': 'Please enter your clearance number',
 								'field_type': 'text',
 								'required': true,
-								'field_options': {},
+								id:'002-1',
+								code:'text',
+								htmltemplate:'',
+								icon:'',
+								ilevel:'',
+								name:'文本框',
+								ordernum:0,
+								parentelemen:'',
+								showhide:1,
+								type:'compont',
+								'properties': {
+
+								},
 								'cid': 'c62'
 							}
 						]
@@ -100,7 +135,19 @@ let AppStore = Reflux.createStore({
 								'label': 'Please enter your clearance number',
 								'field_type': 'text',
 								'required': true,
-								'field_options': {},
+								id:'002-1',
+								code:'text',
+								htmltemplate:'',
+								icon:'',
+								ilevel:'',
+								name:'文本框',
+								ordernum:0,
+								parentelemen:'',
+								showhide:1,
+								type:'compont',
+								'properties': {
+
+								},
 								'cid': 'c63'
 							}
 						]
@@ -125,19 +172,31 @@ let AppStore = Reflux.createStore({
 	onGetCurrentEdit:function(){
 		this.trigger(this.data);
 	},
+	//展示 编辑视图
 	onCreateAndShowEditView:function(viewid){
 		let view = this.findViewByCid(viewid);
 		this.data.currentEdit.isEdit = true;
 		this.data.currentEdit.view = view;
 		this.trigger(this.data);
 	},
-	onCreate:function(type){
-		let newdata = {};
-		newdata[FBConst.mappings.LABEL] = 'Untitled';
-		newdata[FBConst.mappings.FIELD_TYPE] = type;
-		newdata[FBConst.mappings.REQUIRED] = true;
-		newdata['field_options'] = {};
-		this.data.bootstrapData.push(newdata);
+	// 添加一个组件
+	onCreate:function(item, dropResult){
+		// let newdata = {};
+		// newdata[FBConst.mappings.LABEL] = 'Untitled';
+		// newdata[FBConst.mappings.FIELD_TYPE] = item.type;
+		// newdata[FBConst.mappings.REQUIRED] = true;
+		// newdata['field_options'] = {};
+		let compont = FormbuilderStore.findCommonByTypeCode(item.type, item.code);
+		let newcompont = _.cloneDeep(compont);
+		newcompont[FBConst.mappings.LABEL] = 'Untitled';
+		newcompont[FBConst.mappings.FIELD_TYPE] = item.code;
+		newcompont[FBConst.mappings.REQUIRED] = true;
+		newcompont.properties = {};
+		for(let i = 0; i < compont.properties.length; i++){
+			newcompont.properties[compont.properties[i].codestr] = compont.properties[i].defaultvalue;
+		}
+		this.data.bootstrapData[dropResult.rowindex].columns[dropResult.colindex].fields.push(newcompont);
+		//this.data.bootstrapData.push(newdata);
 		this.trigger(this.data);
 	},
 	onAddRow:function(item){
@@ -148,9 +207,8 @@ let AppStore = Reflux.createStore({
 	},
 	// editview 属性发生改变
 	onChangeView:function(view){
-		console.log('action onChangeView');
-		console.log(view);
 		this.data.currentEdit.view = view;
+		// bug
 		let oldview = this.findViewByCid(view.cid);
 		oldview = view;
 		this.trigger(this.data);

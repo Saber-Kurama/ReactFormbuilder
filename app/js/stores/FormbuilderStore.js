@@ -2,6 +2,7 @@
 import Reflux from 'reflux';
 import commonlist from './commonlist';
 import AppActions from '../actions/AppActions';
+import _ from 'lodash';
 let FormbuilderStore = Reflux.createStore({
 	fields:{},
 	commonlist:[],
@@ -34,7 +35,9 @@ let FormbuilderStore = Reflux.createStore({
 			}
 			if(isfind){ break; }
 		}
-		return Object.assign({}, common);
+
+		//return Object.assign({}, common);
+		return _.cloneDeep(common);
 	}
 });
 export default FormbuilderStore;

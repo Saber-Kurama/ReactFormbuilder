@@ -7,7 +7,6 @@ let EditCommon = React.createClass({
 		return (
 			<div>
 				<div className='fb-edit-section-header'>Label33</div>
-232323
 				<div className='fb-common-wrapper'>
 					<div className='fb-label-description'>
 					</div>

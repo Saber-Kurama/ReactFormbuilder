@@ -82,7 +82,7 @@ const commonlist = [{
 	parentelemen:'root',
 	properties:[],
 	showhide:1,
-	type:'row',
+	type:'compont',
 	viewitems:[{
 		id:'002-1',
 		code:'text',
@@ -93,7 +93,7 @@ const commonlist = [{
 		ordernum:0,
 		parentelemen:'',
 		showhide:1,
-		type:'row',
+		type:'compont',
 		properties:[
 			{
 				name:'最小高度',
@@ -110,6 +110,14 @@ const commonlist = [{
 				codestr:'cols',
 				scope:0,
 				defaultvalue:'6,6'
+			},
+			{
+				name:'属性值',
+				valuetype:'文本',
+				labletext:'属性',
+				codestr:'textvalue',
+				scope:0,
+				defaultvalue:'saber'
 			}
 		]
 	}]

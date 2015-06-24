@@ -29,7 +29,7 @@ let ViewFieldView = React.createClass({
 				<div className='subtemplate-wrapper' onClick={this.focusEditView}>
 					<div className='cover'></div>
 					{label}
-					<View />
+					<View {...this.props}/>
 					{description}
 					{duplicateRemove}
 				</div>
@@ -38,7 +38,7 @@ let ViewFieldView = React.createClass({
 	},
 	focusEditView:function(event){
 		event.stopPropagation();
-		AppActions.createAndShowEditView();
+		AppActions.createAndShowEditView(this.props.cid);
 	}
 });
 export default ViewFieldView;

@@ -7,6 +7,7 @@ import Grid from './Grid';
 import GridInner from './GridInner';
 import ViewFieldView from './ViewFieldView';
 import RowLayout from './RowLayout';
+import DropCompontDiv from './DropCompontDiv';
 
 /**
  右侧视图组件
@@ -36,12 +37,12 @@ let RightView = React.createClass({
 			nodatahtml = '';
 		}
 		let viewnodes = [];
-		this.state.bootstrapData.map(item => {
+		this.state.bootstrapData.map((item, rowindex) => {
 			let columns = [];
 			// 将布局的样式属性
 			// let stylecss = {};
 			// stylecss.minHeight = item.
-			item.columns.map(column =>{
+			item.columns.map((column, colindex) =>{
 				// 每列容器的样式
 				let stylecss = {};
 				stylecss.minHeight = column.properties.minheight;
@@ -50,7 +51,7 @@ let RightView = React.createClass({
 				column.fields.map(function(field){
 					viewfieldviews.push(<ViewFieldView {...field}/>);
 				});
-				columns.push(<GridInner {...stylecss}> {viewfieldviews} </GridInner>);
+				columns.push(<GridInner {...stylecss}> <DropCompontDiv rowindex={rowindex} colindex={colindex}>{viewfieldviews} </DropCompontDiv></GridInner>);
 			});
 			viewnodes.push(
 				<Grid cid={item.cid} >
