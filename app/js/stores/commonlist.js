@@ -1,5 +1,5 @@
 'use strict';
-const commonlist = [{
+const compontlist = [{
 	id:'001',
 	code:null,
 	htmltemplate:'',
@@ -124,6 +124,6 @@ const commonlist = [{
 
 }];
 
-export default commonlist;
+export default compontlist;
 
 

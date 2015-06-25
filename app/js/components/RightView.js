@@ -51,7 +51,13 @@ let RightView = React.createClass({
 				column.fields.map(function(field){
 					viewfieldviews.push(<ViewFieldView {...field}/>);
 				});
-				columns.push(<GridInner {...stylecss}> <DropCompontDiv rowindex={rowindex} colindex={colindex}>{viewfieldviews} </DropCompontDiv></GridInner>);
+				columns.push(
+					<GridInner {...stylecss} > 
+						<DropCompontDiv rowindex={rowindex} colindex={colindex} >
+							{viewfieldviews} 
+						</DropCompontDiv>
+					</GridInner>
+				);
 			});
 			viewnodes.push(
 				<Grid cid={item.cid} >

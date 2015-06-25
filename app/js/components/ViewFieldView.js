@@ -8,7 +8,7 @@ let ViewFieldView = React.createClass({
 	render : function(){
 		let label = (
 			<label>
-				<span>{this.props[FBConst.mappings.LABEL]}</span>
+				<span>组件</span>
 			</label>
 		);
 		let description = (
@@ -16,7 +16,7 @@ let ViewFieldView = React.createClass({
 			description
 			</span>
 		);
-		let View = FormbuilderStore.fields[this.props[FBConst.mappings.FIELD_TYPE]].View;
+		let View = FormbuilderStore.fields[this.props.code].View;
 		let btrclass = 'js-clear ' + FBConst.options.BUTTON_CLASS;
 		let duplicateRemove = (
 			<div className='actions-wrapper'>

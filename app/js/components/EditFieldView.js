@@ -11,14 +11,17 @@ let EditFieldView = React.createClass({
 	render : function(){
 		let editview = (<div />);
 		if(this.props.view){
+			console.log(this.props.view);
 			let EditView = FormbuilderStore.fields[this.props.view.code].Edit;
-			let commont = FormbuilderStore.findCommonByTypeCode(this.props.view.type, this.props.view.code);
+			let compont = FormbuilderStore.findCompontByTypeCode(this.props.view.type, this.props.view.code);
 			let properties = [];
-			for(let i = 0; i < commont.properties.length; i++){
-				commont.properties[i].value = this.props.view.properties[commont.properties[i].codestr];
-				properties.push(commont.properties[i]);
+			for(let i = 0; i < compont.properties.length; i++){
+				compont.properties[i].value = this.props.view.properties[compont.properties[i].codestr];
+				properties.push(compont.properties[i]);
 			}
-			editview = (<EditView properties={properties} changeProperties={this.changeProperties}/>);
+			// 如果 没有 key 会产生错误
+			let keyvalue = _.uniqueId('keyvalue_');
+			editview = (<EditView properties={properties} key={keyvalue} changeProperties={this.changeProperties}/>);
 		}
 		return (
 			<div>

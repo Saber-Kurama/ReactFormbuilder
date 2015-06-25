@@ -12,7 +12,7 @@ let LeftView = React.createClass({
 	propTypes:{
 
 	},
-	mixins: [Reflux.listenTo(AppStore, 'onStatusChange'), Reflux.listenTo(FormbuilderStore, 'getCommons')],
+	mixins: [Reflux.listenTo(AppStore, 'onStatusChange'), Reflux.listenTo(FormbuilderStore, 'getComponts')],
 	getInitialState:()=>{
 		return {
 			isEdit:false,
@@ -26,13 +26,14 @@ let LeftView = React.createClass({
 			view:data.currentEdit.view
 		});
 	},
-	getCommons:function(data){
+	getComponts:function(data){
+		console.log(data);
 		this.setState({
 			inputFields:data
 		});
 	},
 	componentWillMount: function() {
-		AppActions.getCommons();
+		AppActions.getComponts();
 	},
 	componentDidMount: function() {
 		AppActions.getCurrentEdit();

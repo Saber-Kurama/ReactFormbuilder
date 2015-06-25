@@ -35,25 +35,7 @@ let AppStore = Reflux.createStore({
 							col:12
 						},
 						fields:[
-							{
-								'label': 'Please enter your clearance number',
-								'field_type': 'text',
-								'required': true,
-								id:'002-1',
-								code:'text',
-								htmltemplate:'',
-								icon:'',
-								ilevel:'',
-								name:'文本框',
-								ordernum:0,
-								parentelemen:'',
-								showhide:1,
-								type:'compont',
-								'properties': {
-									textvalue:'sa'
-								},
-								'cid': 'c6'
-							}
+
 						]
 					}
 				]
@@ -84,44 +66,7 @@ let AppStore = Reflux.createStore({
 							col:6
 						},
 						fields:[
-							{
-								'label': 'Please enter your clearance number',
-								'field_type': 'text',
-								'required': true,
-								id:'002-1',
-								code:'text',
-								htmltemplate:'',
-								icon:'',
-								ilevel:'',
-								name:'文本框',
-								ordernum:0,
-								parentelemen:'',
-								showhide:1,
-								type:'compont',
-								'properties': {
 
-								},
-								'cid': 'c61'
-							},
-							{
-								'label': 'Please enter your clearance number',
-								'field_type': 'text',
-								'required': true,
-								id:'002-1',
-								code:'text',
-								htmltemplate:'',
-								icon:'',
-								ilevel:'',
-								name:'文本框',
-								ordernum:0,
-								parentelemen:'',
-								showhide:1,
-								type:'compont',
-								'properties': {
-
-								},
-								'cid': 'c62'
-							}
 						]
 					},
 					{
@@ -131,25 +76,7 @@ let AppStore = Reflux.createStore({
 							col:6
 						},
 						fields:[
-							{
-								'label': 'Please enter your clearance number',
-								'field_type': 'text',
-								'required': true,
-								id:'002-1',
-								code:'text',
-								htmltemplate:'',
-								icon:'',
-								ilevel:'',
-								name:'文本框',
-								ordernum:0,
-								parentelemen:'',
-								showhide:1,
-								type:'compont',
-								'properties': {
 
-								},
-								'cid': 'c63'
-							}
 						]
 					}
 				]
@@ -186,11 +113,13 @@ let AppStore = Reflux.createStore({
 		// newdata[FBConst.mappings.FIELD_TYPE] = item.type;
 		// newdata[FBConst.mappings.REQUIRED] = true;
 		// newdata['field_options'] = {};
-		let compont = FormbuilderStore.findCommonByTypeCode(item.type, item.code);
+		console.log(item.type + '========' + item.code);
+		let compont = FormbuilderStore.findCompontByTypeCode(item.type, item.code);
 		let newcompont = _.cloneDeep(compont);
-		newcompont[FBConst.mappings.LABEL] = 'Untitled';
-		newcompont[FBConst.mappings.FIELD_TYPE] = item.code;
-		newcompont[FBConst.mappings.REQUIRED] = true;
+		console.log(newcompont);
+		//newcompont[FBConst.mappings.LABEL] = 'Untitled';
+		//newcompont[FBConst.mappings.FIELD_TYPE] = item.code;
+		//newcompont[FBConst.mappings.REQUIRED] = true;
 		newcompont.properties = {};
 		for(let i = 0; i < compont.properties.length; i++){
 			newcompont.properties[compont.properties[i].codestr] = compont.properties[i].defaultvalue;
@@ -200,17 +129,18 @@ let AppStore = Reflux.createStore({
 		this.trigger(this.data);
 	},
 	onAddRow:function(item){
-		let row = FormbuilderStore.findCommonByTypeCode(item.type, item.code);
+		let row = FormbuilderStore.findCompontByTypeCode(item.type, item.code);
 		this.createColumns(row); // 对象传递
 		this.data.bootstrapData.push(row);
 		this.trigger(this.data);
 	},
 	// editview 属性发生改变
 	onChangeView:function(view){
+		console.log('xiugai--');
 		this.data.currentEdit.view = view;
-		// bug
-		let oldview = this.findViewByCid(view.cid);
-		oldview = view;
+		//
+		let oldview = this.setViewByCid(view.cid,view);
+		console.log(this.data.bootstrapData);
 		this.trigger(this.data);
 	},
 	// 根据 布局 组件来创建 列组件（临时创建的，不存数据库中的，辅助布局组件）的属性
@@ -219,10 +149,11 @@ let AppStore = Reflux.createStore({
 		let rowprops = {};
 		for(let p = 0; p < row.properties.length; p++){
 			if(row.properties[p].codestr === 'cols'){
+				console.log(row.properties[p].defaultvalue);
 				colsstr = row.properties[p].defaultvalue;
-			}else{
-				rowprops[row.properties[p].codestr] = row.properties[p].defaultvalue;
 			}
+			rowprops[row.properties[p].codestr] = row.properties[p].defaultvalue;
+			
 		}
 		let cols = colsstr.split(',');
 		row.columns = [];
@@ -237,6 +168,34 @@ let AppStore = Reflux.createStore({
 			column.properties.col = parseInt(cols[i]);
 			row.columns.push(column);
 		}
+		// 修改掉 row 的属性
+		row.properties = rowprops;
+		row.cid = _.uniqueId('row_');
+	},
+	setViewByCid:function(cid,view){
+		// 先做 全部遍历 后面可以修改 row 的cid 以row开头 组件的cid以所属的row地id开始
+		for(let i = 0; i < this.data.bootstrapData.length; i++){
+			//let isfind = false;
+			if(this.data.bootstrapData[i].cid === cid){
+				this.data.bootstrapData[i] = view;
+				//isfind = true;
+				return true;
+			}else{
+				for(let c = 0; c < this.data.bootstrapData[i].columns.length; c++){
+					for(let f = 0; f < this.data.bootstrapData[i].columns[c].fields.length; f++){
+						if(this.data.bootstrapData[i].columns[c].fields[f].cid === cid){
+							this.data.bootstrapData[i].columns[c].fields[f] = view;
+							//isfind = true;
+							return true;
+						}
+					}
+				}
+			}
+			// if(isfind){
+			// 	break;
+			// }
+		}
+		return false;
 	},
 	// 根据 cid 查找相应地view或者grid
 	findViewByCid:function(cid){

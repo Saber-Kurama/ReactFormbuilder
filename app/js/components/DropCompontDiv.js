@@ -20,10 +20,9 @@ let DropCompontDiv = React.createClass({
 		let isactiveshow = '';
 		if (isActive) {
 			isactiveshow = (<a className='sortable-placeholder'></a>);
-
 		}
 		return connectDropTarget(
-			<div className='fb-response-fields'>
+			<div className='fb-response-fields' style={{minHeight:10}}>
 				{this.props.children}
 				{isactiveshow}
 			</div>

@@ -36,9 +36,9 @@ let AddFieldTabView = React.createClass({
 		let sections = [];
 		// 暂时没有考虑前端排序
 		this.props.inputFields.map(item => {
-			if(item.showhide > 0){
+			//if(item.showhide > 0){
 				sections.push(this.createSection(item));
-			}
+			//}
 		});
 		// for (let keyvalue in this.props.inputFields){
 		// 	sections.push(

@@ -11,12 +11,21 @@ let EditView = React.createClass({
 		for(let i = 0; i < this.props.properties.length; i++){
 			stateobj[this.props.properties[i].codestr] = this.props.properties[i].value;
 		}
+		//console.log(stateobj);
 		return stateobj;
 	},
-
+	componentDidMount: function() {
+		let stateobj = {};
+		for(let i = 0; i < this.props.properties.length; i++){
+			stateobj[this.props.properties[i].codestr] = this.props.properties[i].value;
+		}
+		console.log(stateobj);
+	},
 	render:function(){
 		let inputs = [];
 		let labeltext = '';
+		console.log(this.props.properties);
+
 		for(let i = 0; i < this.props.properties.length; i++){
 			if(labeltext !== this.props.properties[i].labletext){
 				labeltext = this.props.properties[i].labletext;
@@ -24,6 +33,7 @@ let EditView = React.createClass({
 					<div className='fb-edit-section-header'>{labeltext}</div>
 				);
 			}
+			console.log(this.linkState(this.props.properties[i].codestr));
 			inputs.push(
 				<div>
 					<label>{this.props.properties[i].name}</label>
@@ -32,7 +42,8 @@ let EditView = React.createClass({
 			);
 		}
 		return (
-			<div >布局1编辑视图
+			<div >
+				<h3>编辑视图</h3>
 				{inputs}
 			</div>
 		);
