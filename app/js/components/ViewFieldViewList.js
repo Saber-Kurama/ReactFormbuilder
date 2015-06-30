@@ -13,7 +13,6 @@ const boxTarget = {
 // class ViewFieldViewList extends Component {
 //   render() {
 //     const { canDrop, isOver, connectDropTarget } = this.props;
-//     console.log(canDrop);
 //     const isActive = canDrop && isOver;
 //     let obj1 = {...style};
 //     let backgroundColor = '#222';

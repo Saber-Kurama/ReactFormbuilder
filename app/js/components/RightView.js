@@ -52,9 +52,9 @@ let RightView = React.createClass({
 					viewfieldviews.push(<ViewFieldView {...field}/>);
 				});
 				columns.push(
-					<GridInner {...stylecss} > 
+					<GridInner {...stylecss} >
 						<DropCompontDiv rowindex={rowindex} colindex={colindex} >
-							{viewfieldviews} 
+							{viewfieldviews}
 						</DropCompontDiv>
 					</GridInner>
 				);

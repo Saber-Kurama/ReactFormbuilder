@@ -11,7 +11,6 @@ let EditFieldView = React.createClass({
 	render : function(){
 		let editview = (<div />);
 		if(this.props.view){
-			console.log(this.props.view);
 			let EditView = FormbuilderStore.fields[this.props.view.code].Edit;
 			let compont = FormbuilderStore.findCompontByTypeCode(this.props.view.type, this.props.view.code);
 			let properties = [];

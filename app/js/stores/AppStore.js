@@ -1,7 +1,6 @@
 'use strict';
 import Reflux from 'reflux';
 import AppActions from '../actions/AppActions';
-import FBConst from './FBConst';
 import FormbuilderStore from './FormbuilderStore';
 import _ from 'lodash';
 
@@ -113,10 +112,8 @@ let AppStore = Reflux.createStore({
 		// newdata[FBConst.mappings.FIELD_TYPE] = item.type;
 		// newdata[FBConst.mappings.REQUIRED] = true;
 		// newdata['field_options'] = {};
-		console.log(item.type + '========' + item.code);
 		let compont = FormbuilderStore.findCompontByTypeCode(item.type, item.code);
 		let newcompont = _.cloneDeep(compont);
-		console.log(newcompont);
 		//newcompont[FBConst.mappings.LABEL] = 'Untitled';
 		//newcompont[FBConst.mappings.FIELD_TYPE] = item.code;
 		//newcompont[FBConst.mappings.REQUIRED] = true;
@@ -124,6 +121,7 @@ let AppStore = Reflux.createStore({
 		for(let i = 0; i < compont.properties.length; i++){
 			newcompont.properties[compont.properties[i].codestr] = compont.properties[i].defaultvalue;
 		}
+		newcompont.cid = _.uniqueId('compont_');
 		this.data.bootstrapData[dropResult.rowindex].columns[dropResult.colindex].fields.push(newcompont);
 		//this.data.bootstrapData.push(newdata);
 		this.trigger(this.data);
@@ -136,11 +134,9 @@ let AppStore = Reflux.createStore({
 	},
 	// editview 属性发生改变
 	onChangeView:function(view){
-		console.log('xiugai--');
 		this.data.currentEdit.view = view;
 		//
-		let oldview = this.setViewByCid(view.cid,view);
-		console.log(this.data.bootstrapData);
+		this.setViewByCid(view.cid, view);
 		this.trigger(this.data);
 	},
 	// 根据 布局 组件来创建 列组件（临时创建的，不存数据库中的，辅助布局组件）的属性
@@ -149,11 +145,9 @@ let AppStore = Reflux.createStore({
 		let rowprops = {};
 		for(let p = 0; p < row.properties.length; p++){
 			if(row.properties[p].codestr === 'cols'){
-				console.log(row.properties[p].defaultvalue);
 				colsstr = row.properties[p].defaultvalue;
 			}
 			rowprops[row.properties[p].codestr] = row.properties[p].defaultvalue;
-			
 		}
 		let cols = colsstr.split(',');
 		row.columns = [];
@@ -172,7 +166,7 @@ let AppStore = Reflux.createStore({
 		row.properties = rowprops;
 		row.cid = _.uniqueId('row_');
 	},
-	setViewByCid:function(cid,view){
+	setViewByCid:function(cid, view){
 		// 先做 全部遍历 后面可以修改 row 的cid 以row开头 组件的cid以所属的row地id开始
 		for(let i = 0; i < this.data.bootstrapData.length; i++){
 			//let isfind = false;

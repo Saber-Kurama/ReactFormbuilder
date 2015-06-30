@@ -6,6 +6,7 @@ import _ from 'lodash';
 let FormbuilderStore = Reflux.createStore({
 	fields:{},
 	compontlist:[],
+	qs:[],
 	init:function(){
 		this.listenTo(AppActions.getComponts, 'onGetComponts');
 	},
@@ -13,12 +14,15 @@ let FormbuilderStore = Reflux.createStore({
 		console.log('获取组件数据');
 		console.log(compontlist);
 		//return compontlist;
+		// 暂时 写代码到这
+		this.qs = zyuc_qs;
+
 		this.compontlist = compontlist;
 		this.trigger(compontlist);//
 	},
 	// 注册 组件 主要是注册组件的 view 和 editview
 	registerField:function(name, opts){
-		opts.field_type = name;
+		//opts.field_type = name;
 		this.fields[name] = opts;
 	},
 	// 由于 没有  type 这个值 不靠谱 暂时 去掉 type 的判断

@@ -29,7 +29,6 @@ let Row1View = React.createClass({
 // 		let inputs = [];
 // 		let labeltext = '';
 // 		let self = this;
-// 		console.log(this.linkState('saber'));
 // 		for(let i = 0; i < this.props.properties.length; i++){
 // 			if(labeltext !== this.props.properties[i].labletext){
 // 				labeltext = this.props.properties[i].labletext;
@@ -44,7 +43,6 @@ let Row1View = React.createClass({
 // 				</div>
 // 			)
 // 		}
-// 		console.log(inputs);
 // 		return (
 // 			<div >布局1编辑视图
 // 				{inputs}
@@ -53,17 +51,14 @@ let Row1View = React.createClass({
 // 	},
 // 	changeProperties:function(){
 
-// 		console.log('属性修改');
 // 		let properties = {};
 // 		for(let i = 0; i < this.props.properties.length; i++){
 // 			properties[this.props.properties[i].codestr]  = this.linkState(this.props.properties[i].codestr).value;
 // 		}
-// 		console.log(properties);
 // 		this.props.changeProperties(properties);
 // 		this.saber();
 // 	},
 // 	saber:function(){
-// 		console.log('saber');
 // 	}
 // });
 FormbuilderStore.registerField('row1', {

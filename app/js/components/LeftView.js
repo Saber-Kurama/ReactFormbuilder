@@ -27,7 +27,6 @@ let LeftView = React.createClass({
 		});
 	},
 	getComponts:function(data){
-		console.log(data);
 		this.setState({
 			inputFields:data
 		});

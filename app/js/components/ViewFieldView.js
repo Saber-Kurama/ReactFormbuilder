@@ -1,10 +1,14 @@
 'use strict';
-import React from 'react';
+import React, {PropTypes}from 'react';
 import FBConst from '../stores/FBConst';
 import FormbuilderStore from '../stores/FormbuilderStore';
 import AppActions from '../actions/AppActions';
 
 let ViewFieldView = React.createClass({
+	propTypes:{
+		code:PropTypes.string,
+		cid:PropTypes.string
+	},
 	render : function(){
 		let label = (
 			<label>
