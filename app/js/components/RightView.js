@@ -66,13 +66,11 @@ let RightView = React.createClass({
 			);
 		});
 		return (
-			<div className='fb-right'>
-				{nodatahtml}
+				
 				<RowLayout >
+					{nodatahtml}
 					{viewnodes}
 				</RowLayout>
-			</div>
-
 		);
 	}
 });

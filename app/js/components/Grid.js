@@ -17,8 +17,21 @@ let Grid = React.createClass({
 				</div>
 			</div>
 		);
+		// return (
+		// 	<div className="row" style={{marginBottom:5}} >
+		// 		<div className="container-fluid grid-wrapper" onClick={this.focusEditView}>
+		// 			<div className='cover'></div>
+		// 			{this.props.children}
+		// 			<div className='grid-actions-wrapper'>
+		// 				<a className="js-duplicate fb-button" title="Duplicate Field"><i className='fa fa-plus-circle'></i></a>
+		// 				<a className="js-clear fb-button" title="Remove Field"><i className='fa fa-minus-circle'></i></a>
+		// 			</div>
+		// 		</div>
+		// 	</div>
+		// );
 	},
 	focusEditView:function(event){
+		console.log('开始编辑视图');
 		event.stopPropagation();
 		AppActions.createAndShowEditView(this.props.cid);
 	}

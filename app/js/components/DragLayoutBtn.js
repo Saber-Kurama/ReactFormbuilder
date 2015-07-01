@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import ItemTypes from './ItemTypes';
 import { DragSource } from 'react-dnd';
 import AppActions from '../actions/AppActions';
+import mui, {RaisedButton} from 'material-ui';
+
 const boxSource = {
   beginDrag(props) {
     return {
@@ -45,7 +47,8 @@ let DragLayoutBtn = React.createClass({
 		const { name, columns} = this.props;
 		return (
 			connectDragSource(
-				<a data-field-type={name} className="fb-button ui-draggable">{name}</a>
+				/*a data-field-type={name} className="fb-button ui-draggable">{name}</a>*/
+        <RaisedButton data-field-type={name} label={name} style={{width:'140px', margin:5}}/>
 			)
 		);
 	}

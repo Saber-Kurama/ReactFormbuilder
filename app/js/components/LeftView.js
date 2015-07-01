@@ -6,7 +6,7 @@ import EditFieldView from './EditFieldView';
 import AppActions from '../actions/AppActions';
 import AppStore from '../stores/AppStore';
 import FormbuilderStore from '../stores/FormbuilderStore';
-
+import mui, {Tabs, Tab} from 'material-ui';
 
 let LeftView = React.createClass({
 	propTypes:{
@@ -53,25 +53,38 @@ let LeftView = React.createClass({
 			'fb-tab-pane' : true,
 			'active': this.state.isEdit
 		});
+		console.log(this.state.isEdit);
+		let tabindex = this.state.isEdit ? 1 : 0;
+		console.log(tabindex);
 		return (
-			<div className='fb-left' >
-				<ul className='fb-tabs'>
-					<li className={addliclass} ><a data-target='#addField' onClick={this.showAddTab}>Add new field</a></li>
-					<li className={editliclass} ><a data-target='#editField' onClick={this.showEditTab} >Edit field</a></li>
-				</ul>
-
-				<div className='fb-tab-content'>
-					<div className={addfieldclass} id='addField'>
-						<AddFieldTabView inputFields = {this.state.inputFields} />
-					</div>
-					<div className={editfieldclass} id='editField'>
-						<div className='fb-edit-field-wrapper'>
-							<EditFieldView view={this.state.view} changeView={this.changeView}/>
-						</div>
-					</div>
-				</div>
-			</div>
+			<Tabs initialSelectedIndex={tabindex}>
+				<Tab label='添加新组件'>
+					<AddFieldTabView inputFields = {this.state.inputFields} />
+				</Tab>
+				<Tab label='编辑组件'>
+					<EditFieldView view={this.state.view} changeView={this.changeView}/>
+				</Tab>
+			</Tabs>
 		);
+		// return (
+		// 	<div className='fb-left' >
+		// 		<ul className='fb-tabs'>
+		// 			<li className={addliclass} ><a data-target='#addField' onClick={this.showAddTab}>Add new field</a></li>
+		// 			<li className={editliclass} ><a data-target='#editField' onClick={this.showEditTab} >Edit field</a></li>
+		// 		</ul>
+
+		// 		<div className='fb-tab-content'>
+		// 			<div className={addfieldclass} id='addField'>
+		// 				<AddFieldTabView inputFields = {this.state.inputFields} />
+		// 			</div>
+		// 			<div className={editfieldclass} id='editField'>
+		// 				<div className='fb-edit-field-wrapper'>
+		// 					<EditFieldView view={this.state.view} changeView={this.changeView}/>
+		// 				</div>
+		// 			</div>
+		// 		</div>
+		// 	</div>
+		// );
 	},
 	showAddTab:function(){
 		this.setState({

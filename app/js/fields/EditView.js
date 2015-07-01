@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import FormbuilderStore from '../stores/FormbuilderStore';
+import mui, {TextField} from 'material-ui';
 
 let EditView = React.createClass({
 	propTypes:{
@@ -95,27 +96,42 @@ let EditView = React.createClass({
 					);
 				}
 			}else{
+				// elementstr = (
+				// 	<div>
+						
+				// 		<label>{this.props.properties[i].name}</label>
+				// 		<input key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} defaultValue={this.props.properties[i].value} onChange={this.changeProperties} />
+				// 		TextField
+				// 	</div>
+				// );
 				elementstr = (
 					<div>
-						<label>{this.props.properties[i].name}</label>
-						<input key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} defaultValue={this.props.properties[i].value} onChange={this.changeProperties} />
+						<TextField key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} 
+						defaultValue={this.props.properties[i].value} onChange={this.changeProperties} floatingLabelText={this.props.properties[i].name} 
+						style={{width:'100%'}} />
 					</div>
 				);
 			}
 			inputs.push(elementstr);
 		}
 		return (
-			<div >
-				<h3>编辑视图</h3>
+			<div style={{padding:10}}>
+				<h4>编辑视图</h4>
 				{inputs}
 			</div>
 		);
 	},
 	changeProperties:function(event){
+		console.log('更改属性');
+		console.log(event);
 		Object.keys(this.refs).forEach((ref, i) => {
-			let value = this.getInputValue(ref);
+			console.log(this.refs[ref]);
+			let value = this.refs[ref].getValue();
+			console.log(value);
 			this.properties[ref] = value;
+
 		}.bind(this));
+
 		this.props.changeProperties(this.properties);
 	},
 	getInputValue:function(ref){

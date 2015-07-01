@@ -1,7 +1,8 @@
 import {
     srcRoot, distRoot
 }
-from './constants'
+from './constants';
+import ExtractTextPlugin from"extract-text-webpack-plugin";
 const config = {
     devtool: 'inline-source-map',
     entry: {
@@ -22,7 +23,11 @@ const config = {
             test: /\.js?$/,
             exclude: /node_modules/,
             loader: 'babel-loader'
-        }]
-    }
+        },{ test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader','css-loader!less-loader') }]
+    },
+    plugins: [
+        new ExtractTextPlugin("../css/[name].css")
+    ]
+
 }
 module.exports = config;
