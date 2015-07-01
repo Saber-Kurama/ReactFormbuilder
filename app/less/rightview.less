@@ -1,0 +1,28 @@
+
+// 布局 列 内容为 空的时候 
+.gridinner-empty{
+	&::after{
+		content: '请拖动组件到此区域';
+		padding: 7px;
+		display: block;
+		color: #949281;
+		background-color: rgba(195, 195, 195, 0.48);
+		text-align: center;
+	}
+}
+
+
+.placeholder {
+  background: #F4E8E0;
+  line-height: 30px;
+  margin: 5px;
+  padding: 0 5px;
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+  &:before {
+	  content: "放置到此处";
+	  color: #b9b9b9;
+	  text-shadow: 2px 2px 3px rgba(32, 31, 31, 0.12);
+	}
+}

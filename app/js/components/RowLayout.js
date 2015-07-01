@@ -1,6 +1,7 @@
 import React from 'react';
 import ItemTypes from './ItemTypes';
 import { DropTarget } from 'react-dnd';
+import {Paper} from 'material-ui';
 
 // 用来 放置 row 组件
 const boxTarget = {
@@ -15,13 +16,13 @@ let RowLayout = React.createClass({
     const isActive = canDrop && isOver;
     let isactiveshow = '';
     if (isActive) {
-      isactiveshow = (<a className='sortable-placeholder'></a>);
+      isactiveshow = (<Paper className='placeholder'></Paper>);
 
     }
 
     return connectDropTarget(
-      <div className='fb-response-fields'>
-		{this.props.children}
+      <div className='fb-response-fields container-fluid'>
+		    {this.props.children}
         {isactiveshow}
       </div>
     );

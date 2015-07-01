@@ -1,18 +1,28 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes} from 'react/addons';
 import FormbuilderStore from '../stores/FormbuilderStore';
-import mui, {TextField} from 'material-ui';
+import mui, {TextField, SelectField} from 'material-ui';
 
 let EditView = React.createClass({
 	propTypes:{
 		properties:PropTypes.object,
 		changeProperties:PropTypes.func
 	},
-	//mixins:[React.addons.LinkedStateMixin],
-	// getInitialState: function() {
-	// 	return {
-	// 		qsid:null
-	// 	};
-	// },
+	mixins:[React.addons.LinkedStateMixin],
+	getInitialState: function() {
+		let stateobj = {};
+		for(let i = 0; i < this.props.properties.length; i++){
+			if(this.props.properties[i].scope === 1){
+				// stateobj[this.props.properties[i].codestr] = {
+				// 	payload:this.props.properties[i].id,
+				// 	text:this.props.properties[i].value
+				// }
+				stateobj[this.props.properties[i].codestr] = this.props.properties[i].value;
+				this.properties[this.props.properties[i].codestr] = this.props.properties[i].value;
+
+			}
+		}
+		return stateobj;
+	},
 	componentDidMount: function() {
 		// let stateobj = {};
 		// for(let i = 0; i < this.props.properties.length; i++){
@@ -22,6 +32,8 @@ let EditView = React.createClass({
 	properties:{},
 	qsid:null,
 	render:function(){
+		console.log('---------------------------');
+		console.log(this.state.query);
 		// 编辑视图的 form表单
 		let inputs = [];
 		let labeltext = '';
@@ -43,9 +55,11 @@ let EditView = React.createClass({
 				// 判断 是不是  查询
 				if(this.props.properties[i].codestr === 'query' ){
 					let options = [];
-					options.push(<option >请选择</option>);
+					//options.push(<option >请选择</option>);
+					//options.push({payload:null, text:'请选择'});
 					for(let q = 0; q < FormbuilderStore.qs.length; q++){
-						options.push(<option value={FormbuilderStore.qs[q].id}>{FormbuilderStore.qs[q].name}</option>);
+						//options.push(<option value={FormbuilderStore.qs[q].id}>{FormbuilderStore.qs[q].name}</option>);
+						options.push({payload:FormbuilderStore.qs[q].id, text:FormbuilderStore.qs[q].name});
 					}
 					// 这里面有个bug  。。初始化的时候，如果先渲染依赖它的值表单的话就问题，因为初始值为null
 					if(this.props.properties[i].value){
@@ -59,17 +73,48 @@ let EditView = React.createClass({
 					if(options.length < 1){
 						
 					}
+					// 不能再渲染的时候 初始化 state 数据
+					//this.state[this.props.properties[i].codestr] = this.props.properties[i].value;
+					let statekey = this.props.properties[i].codestr;
+					let selectValueLink = {
+						value:this.state[this.props.properties[i].codestr],
+						requestChange:function(newvalue){
+							console.log('=======')
+							console.log(newvalue);
+							let newobj = {};
+							newobj[statekey] = newvalue
+							this.setState(newobj);
+							console.log(this.state);
+							this.properties[statekey] = newvalue;
+							this.props.changeProperties(this.properties);
+						}.bind(this)
+					}
 					elementstr = (
 						<div>
-							<label>{this.props.properties[i].name}</label>
-							<select key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} defaultValue={this.props.properties[i].value} onChange={this.changeProperties}>
-								{options}
-							</select>
+							<SelectField key={this.props.properties[i].codestr}
+							ref={this.props.properties[i].codestr}
+							valueLink = {selectValueLink}
+							//valueLink={this.linkState(this.props.properties[i].codestr).value}
+							//onChange={function(e){this.changeSelectProps(e, statekey)}.bind(this) }
+							//hintText={this.props.properties[i].name}
+							floatingLabelText={this.props.properties[i].name}
+							menuItems={options}
+							>
+								
+							</SelectField>
 						</div>
 					);
+					// elementstr = (
+					// 	<div>
+					// 		<label>{this.props.properties[i].name}</label>
+					// 		<select key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} defaultValue={this.props.properties[i].value} onChange={this.changeProperties}>
+					// 			{options}
+					// 		</select>
+					// 	</div>
+					// );
 				}else{
 					let options = [], columns;
-					options.push(<option >请选择</option>);
+					//options.push({payload:null, text:'请选择'});
 					if(this.qsid){
 						for(let q = 0; q < FormbuilderStore.qs.length; q++){
 							if(this.qsid === FormbuilderStore.qs[q].id){
@@ -80,20 +125,50 @@ let EditView = React.createClass({
 					}
 					if(columns){
 						columns.map((column) => {
-							options.push(<option value={column.id}>{column.logfiled}</option>);
+							//options.push(<option value={column.id}>{column.logfiled}</option>);
+							options.push({payload:column.id, text:column.logfiled});
 						});
 					}					
 					if(options.length < 1){
 						
 					}
+					let statekey = this.props.properties[i].codestr;
+					let selectValueLink = {
+						value:this.state[this.props.properties[i].codestr],
+						requestChange:function(newvalue){
+							console.log('=======')
+							console.log(newvalue);
+							let newobj = {};
+							newobj[statekey] = newvalue
+							this.setState(newobj);
+							console.log(this.state);
+							this.properties[statekey] = newvalue;
+							this.props.changeProperties(this.properties);
+						}.bind(this)
+					}
 					elementstr = (
 						<div>
-							<label>{this.props.properties[i].name}</label>
-							<select key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} defaultValue={this.props.properties[i].value} onChange={this.changeProperties}>
-								{options}
-							</select>
+							<SelectField key={this.props.properties[i].codestr} 
+							ref={this.props.properties[i].codestr} 
+							valueLink = {selectValueLink}
+							//defaultValue={this.props.properties[i].value} 
+							//onChange={this.changeProperties}
+							floatingLabelText={this.props.properties[i].name}
+							menuItems={options}
+							>
+								
+							</SelectField>
 						</div>
 					);
+					
+					// elementstr = (
+					// 	<div>
+					// 		<label>{this.props.properties[i].name}</label>
+					// 		<select key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} defaultValue={this.props.properties[i].value} onChange={this.changeProperties}>
+					// 			{options}
+					// 		</select>
+					// 	</div>
+					// );
 				}
 			}else{
 				// elementstr = (
@@ -104,6 +179,7 @@ let EditView = React.createClass({
 				// 		TextField
 				// 	</div>
 				// );
+				this.properties[this.props.properties[i].codestr] = this.props.properties[i].value;
 				elementstr = (
 					<div>
 						<TextField key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} 
@@ -121,15 +197,31 @@ let EditView = React.createClass({
 			</div>
 		);
 	},
+	changeSelectProps:function(e, statekey){
+		//console.log(statekey)
+		//console.log(e.target);
+		//this.state[statekey] = e.target.value;
+		console.log(e.target.value);
+		this.linkState(statekey).requestChange(e.target.value.text);
+		console.log(this.state)
+		this.properties[statekey] = e.target.value.text;
+		// this.setState(this.state);
+		// console.log(this.state);
+		 console.log(this.properties);
+		this.props.changeProperties(this.properties);
+	},
 	changeProperties:function(event){
 		console.log('更改属性');
-		console.log(event);
 		Object.keys(this.refs).forEach((ref, i) => {
+			console.log(ref);
 			console.log(this.refs[ref]);
-			let value = this.refs[ref].getValue();
-			console.log(value);
-			this.properties[ref] = value;
-
+			let value = '';
+			if(this.refs[ref].getValue){
+				value = this.refs[ref].getValue();
+				this.properties[ref] = value;
+			}else{
+				
+			}			
 		}.bind(this));
 
 		this.props.changeProperties(this.properties);
@@ -137,10 +229,11 @@ let EditView = React.createClass({
 	getInputValue:function(ref){
 		if(this.refs[ref] && this.refs[ref].getDOMNode){
 			let input = this.refs[ref].getDOMNode();
-			if(input.type === 'checkbox'){
-				return input.checked;
-			}
-			return input.value;
+			console.log(input);
+			// if(input.type === 'checkbox'){
+			// 	return input.checked;
+			// }
+			// return input.value;
 		}
 	},
 	saber:function(){

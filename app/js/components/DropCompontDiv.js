@@ -2,6 +2,7 @@
 import React from 'react';
 import ItemTypes from './ItemTypes';
 import { DropTarget } from 'react-dnd';
+import {Paper} from 'material-ui';
 // 定义 一个 对象
 const boxTarget = {
   drop(props) {
@@ -19,7 +20,7 @@ let DropCompontDiv = React.createClass({
 		const isActive = canDrop && isOver;
 		let isactiveshow = '';
 		if (isActive) {
-			isactiveshow = (<a className='sortable-placeholder'></a>);
+			isactiveshow = (<Paper className='placeholder'></Paper>);
 		}
 		return connectDropTarget(
 			<div className='fb-response-fields' style={{minHeight:10}}>

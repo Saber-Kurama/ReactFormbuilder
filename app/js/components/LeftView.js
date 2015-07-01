@@ -16,15 +16,24 @@ let LeftView = React.createClass({
 	getInitialState:()=>{
 		return {
 			isEdit:false,
+			tabindex:0,
 			inputFields:[],
 			view:null
 		};
 	},
 	onStatusChange:function(data){
+		let tabindex = this.state.isEdit ? 1 : 0;
+		console.log(tabindex);
 		this.setState({
+			tabindex: tabindex,
 			isEdit: data.currentEdit.isEdit,
 			view:data.currentEdit.view
 		});
+		// 修改组件的状态 
+		console.log(this.refs.leftTabs.state);
+		this.refs.leftTabs.setState({
+			selectedIndex:tabindex
+		})
 	},
 	getComponts:function(data){
 		this.setState({
@@ -53,11 +62,10 @@ let LeftView = React.createClass({
 			'fb-tab-pane' : true,
 			'active': this.state.isEdit
 		});
-		console.log(this.state.isEdit);
-		let tabindex = this.state.isEdit ? 1 : 0;
-		console.log(tabindex);
+		console.log(this.state);
+		
 		return (
-			<Tabs initialSelectedIndex={tabindex}>
+			<Tabs  ref="leftTabs" initialSelectedIndex={this.state.tabindex} >
 				<Tab label='添加新组件'>
 					<AddFieldTabView inputFields = {this.state.inputFields} />
 				</Tab>

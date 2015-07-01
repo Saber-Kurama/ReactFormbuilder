@@ -8,6 +8,7 @@ import GridInner from './GridInner';
 import ViewFieldView from './ViewFieldView';
 import RowLayout from './RowLayout';
 import DropCompontDiv from './DropCompontDiv';
+import classNames from 'classnames';
 
 /**
  右侧视图组件
@@ -51,8 +52,12 @@ let RightView = React.createClass({
 				column.fields.map(function(field){
 					viewfieldviews.push(<ViewFieldView {...field}/>);
 				});
+				let giclassnames = '';
+				if(viewfieldviews.length <= 0){
+					giclassnames = classNames(giclassnames, 'gridinner-empty');
+				}
 				columns.push(
-					<GridInner {...stylecss} >
+					<GridInner {...stylecss} className={giclassnames} >
 						<DropCompontDiv rowindex={rowindex} colindex={colindex} >
 							{viewfieldviews}
 						</DropCompontDiv>

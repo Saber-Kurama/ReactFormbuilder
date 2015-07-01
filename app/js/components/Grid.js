@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import AppActions from '../actions/AppActions';
+import {Paper} from 'material-ui';
 let Grid = React.createClass({
 	propTypes:{
 		cid:PropTypes.string.isRequired

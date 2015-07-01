@@ -8,7 +8,7 @@ var  zyuc_qs =[
 				logfiled:'用户',
 			},
 			{
-				id:'0000000001',
+				id:'0000000002',
 				logfiled:'年份',				
 			}
 		]

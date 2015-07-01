@@ -32,9 +32,9 @@ let ViewFieldView = React.createClass({
 			<div className='fb-field-wrapper' >
 				<div className='subtemplate-wrapper' onClick={this.focusEditView}>
 					<div className='cover'></div>
-					{label}
+					
 					<View {...this.props}/>
-					{description}
+					
 					{duplicateRemove}
 				</div>
 			</div>
