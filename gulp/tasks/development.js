@@ -25,5 +25,5 @@ import runSequence from 'run-sequence';
 import browserSync from 'browser-sync';
 
 gulp.task('dev',['clean'],function(cb){
-	runSequence('views','copycss','copyfonts','styles','images','bundle','watch',cb);
+	runSequence('views','copycss','copyjs','copyfonts','styles','images','bundle','watch',cb);
 })

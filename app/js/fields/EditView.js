@@ -11,7 +11,7 @@ let EditView = React.createClass({
 	getInitialState: function() {
 		let stateobj = {};
 		for(let i = 0; i < this.props.properties.length; i++){
-			if(this.props.properties[i].scope === 1){
+			//if(this.props.properties[i].scope === 1){
 				// stateobj[this.props.properties[i].codestr] = {
 				// 	payload:this.props.properties[i].id,
 				// 	text:this.props.properties[i].value
@@ -19,7 +19,7 @@ let EditView = React.createClass({
 				stateobj[this.props.properties[i].codestr] = this.props.properties[i].value;
 				this.properties[this.props.properties[i].codestr] = this.props.properties[i].value;
 
-			}
+			//}
 		}
 		return stateobj;
 	},
@@ -33,7 +33,6 @@ let EditView = React.createClass({
 	qsid:null,
 	render:function(){
 		console.log('---------------------------');
-		console.log(this.state.query);
 		// 编辑视图的 form表单
 		let inputs = [];
 		let labeltext = '';
@@ -79,19 +78,16 @@ let EditView = React.createClass({
 					let selectValueLink = {
 						value:this.state[this.props.properties[i].codestr],
 						requestChange:function(newvalue){
-							console.log('=======')
-							console.log(newvalue);
 							let newobj = {};
 							newobj[statekey] = newvalue
 							this.setState(newobj);
-							console.log(this.state);
 							this.properties[statekey] = newvalue;
 							this.props.changeProperties(this.properties);
 						}.bind(this)
 					}
 					elementstr = (
 						<div>
-							<SelectField key={this.props.properties[i].codestr}
+							<SelectField 
 							ref={this.props.properties[i].codestr}
 							valueLink = {selectValueLink}
 							//valueLink={this.linkState(this.props.properties[i].codestr).value}
@@ -136,19 +132,16 @@ let EditView = React.createClass({
 					let selectValueLink = {
 						value:this.state[this.props.properties[i].codestr],
 						requestChange:function(newvalue){
-							console.log('=======')
-							console.log(newvalue);
 							let newobj = {};
 							newobj[statekey] = newvalue
 							this.setState(newobj);
-							console.log(this.state);
 							this.properties[statekey] = newvalue;
 							this.props.changeProperties(this.properties);
 						}.bind(this)
 					}
 					elementstr = (
 						<div>
-							<SelectField key={this.props.properties[i].codestr} 
+							<SelectField  
 							ref={this.props.properties[i].codestr} 
 							valueLink = {selectValueLink}
 							//defaultValue={this.props.properties[i].value} 
@@ -180,10 +173,22 @@ let EditView = React.createClass({
 				// 	</div>
 				// );
 				this.properties[this.props.properties[i].codestr] = this.props.properties[i].value;
+				let statekey = this.props.properties[i].codestr;
+				let textValueLink = {
+						value:this.state[this.props.properties[i].codestr],
+						requestChange:function(newvalue){
+							let newobj = {};
+							newobj[statekey] = newvalue
+							this.setState(newobj);
+							this.properties[statekey] = newvalue;
+							this.props.changeProperties(this.properties);
+						}.bind(this)
+					}
 				elementstr = (
 					<div>
-						<TextField key={this.props.properties[i].codestr} ref={this.props.properties[i].codestr} 
-						defaultValue={this.props.properties[i].value} onChange={this.changeProperties} floatingLabelText={this.props.properties[i].name} 
+						<TextField  ref={this.props.properties[i].codestr} 
+						valueLink = {textValueLink}
+						//defaultValue={this.props.properties[i].value} onChange={this.changeProperties} floatingLabelText={this.props.properties[i].name} 
 						style={{width:'100%'}} />
 					</div>
 				);
@@ -198,38 +203,28 @@ let EditView = React.createClass({
 		);
 	},
 	changeSelectProps:function(e, statekey){
-		//console.log(statekey)
-		//console.log(e.target);
 		//this.state[statekey] = e.target.value;
-		console.log(e.target.value);
 		this.linkState(statekey).requestChange(e.target.value.text);
-		console.log(this.state)
 		this.properties[statekey] = e.target.value.text;
 		// this.setState(this.state);
-		// console.log(this.state);
-		 console.log(this.properties);
 		this.props.changeProperties(this.properties);
 	},
 	changeProperties:function(event){
-		console.log('更改属性');
-		Object.keys(this.refs).forEach((ref, i) => {
-			console.log(ref);
-			console.log(this.refs[ref]);
-			let value = '';
-			if(this.refs[ref].getValue){
-				value = this.refs[ref].getValue();
-				this.properties[ref] = value;
-			}else{
+		// Object.keys(this.refs).forEach((ref, i) => {
+		// 	let value = '';
+		// 	if(this.refs[ref].getValue){
+		// 		value = this.refs[ref].getValue();
+		// 		this.properties[ref] = value;
+		// 	}else{
 				
-			}			
-		}.bind(this));
+		// 	}			
+		// }.bind(this));
 
 		this.props.changeProperties(this.properties);
 	},
 	getInputValue:function(ref){
 		if(this.refs[ref] && this.refs[ref].getDOMNode){
 			let input = this.refs[ref].getDOMNode();
-			console.log(input);
 			// if(input.type === 'checkbox'){
 			// 	return input.checked;
 			// }

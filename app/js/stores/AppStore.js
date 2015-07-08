@@ -3,6 +3,7 @@ import Reflux from 'reflux';
 import AppActions from '../actions/AppActions';
 import FormbuilderStore from './FormbuilderStore';
 import _ from 'lodash';
+import $ from 'jquery';
 
 let AppStore = Reflux.createStore({
 	data:{
@@ -217,6 +218,21 @@ let AppStore = Reflux.createStore({
 			// }
 		}
 		return view;
+	},
+	saveJson:function(){
+		//alert(this.data.bootstrapData);
+		//let datajson = this.data.bootstrapData; stringify
+		return ;
+		let datastr = JSON.stringify(this.data.bootstrapData);
+		$.ajax({
+			url:zyuc_config.savejsonurl,
+			method:'POST',
+			data:{savejson:datastr}
+		}).done(function(result){
+			alert('提交到后台');
+		}).fail(function(){
+			alert('后台保存失败');
+		})
 	}
 });
 

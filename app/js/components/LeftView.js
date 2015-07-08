@@ -23,17 +23,17 @@ let LeftView = React.createClass({
 	},
 	onStatusChange:function(data){
 		let tabindex = this.state.isEdit ? 1 : 0;
-		console.log(tabindex);
 		this.setState({
 			tabindex: tabindex,
 			isEdit: data.currentEdit.isEdit,
 			view:data.currentEdit.view
 		});
 		// 修改组件的状态 
-		console.log(this.refs.leftTabs.state);
-		this.refs.leftTabs.setState({
-			selectedIndex:tabindex
-		})
+		console.log('=====修改组件的状态=======');
+		// console.log(this.refs.leftTabs.state);
+		 this.refs.leftTabs.setState({
+		 	selectedIndex:tabindex
+		 })
 	},
 	getComponts:function(data){
 		this.setState({
@@ -47,6 +47,7 @@ let LeftView = React.createClass({
 		AppActions.getCurrentEdit();
 	},
 	render : function(){
+		console.log("===========左侧视图====================");
 		let cx = React.addons.classSet;
 		let addliclass = cx({
 			'active':!this.state.isEdit
@@ -62,7 +63,6 @@ let LeftView = React.createClass({
 			'fb-tab-pane' : true,
 			'active': this.state.isEdit
 		});
-		console.log(this.state);
 		
 		return (
 			<Tabs  ref="leftTabs" initialSelectedIndex={this.state.tabindex} >

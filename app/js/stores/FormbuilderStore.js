@@ -1,6 +1,6 @@
 'use strict';
 import Reflux from 'reflux';
-import compontlist from './views';
+//import compontlist from './views';
 import AppActions from '../actions/AppActions';
 import _ from 'lodash';
 let FormbuilderStore = Reflux.createStore({
@@ -11,14 +11,12 @@ let FormbuilderStore = Reflux.createStore({
 		this.listenTo(AppActions.getComponts, 'onGetComponts');
 	},
 	onGetComponts:function(){
-		console.log('获取组件数据');
-		console.log(compontlist);
 		//return compontlist;
 		// 暂时 写代码到这
 		this.qs = zyuc_qs;
-
-		this.compontlist = compontlist;
-		this.trigger(compontlist);//
+		this.config = zyuc_config;
+		this.compontlist = zyuc_compontlist;
+		this.trigger(zyuc_compontlist);//
 	},
 	// 注册 组件 主要是注册组件的 view 和 editview
 	registerField:function(name, opts){

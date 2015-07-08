@@ -12,6 +12,14 @@ let Row2View = React.createClass({
 		return (<input type='text' className={inputClassName} />);
 	}
 });
+let Row2Edit = React.createClass({
+	render:function(){
+		return (<div> 
+			<input />
+			sadasda
+		</div>);
+	}
+});
 
 FormbuilderStore.registerField('row2', {
 	View: Row2View,

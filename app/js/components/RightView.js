@@ -9,6 +9,7 @@ import ViewFieldView from './ViewFieldView';
 import RowLayout from './RowLayout';
 import DropCompontDiv from './DropCompontDiv';
 import classNames from 'classnames';
+import {Paper, RaisedButton, FlatButton} from 'material-ui';
 
 /**
  右侧视图组件
@@ -27,6 +28,7 @@ let RightView = React.createClass({
 		this.setState({
 			bootstrapData: data.bootstrapData
 		});
+		this.saveJson();
 	},
 	// 组件装载的时候
 	componentDidMount: function() {
@@ -70,13 +72,29 @@ let RightView = React.createClass({
 				</Grid>
 			);
 		});
+		let papertopstyle={
+			backgroundColor:'#00bad4',
+			marginTop:'-10px',
+			marginLeft:'-15px',
+			marginRight:'-15px',
+			marginBottom:'10px',
+			height:'48px'
+		}
 		return (
-				
-				<RowLayout >
-					{nodatahtml}
-					{viewnodes}
-				</RowLayout>
+				<div>
+					<Paper style={papertopstyle}>
+						<FlatButton label="保存"  onClick={this.saveJson}
+						style={{height:'48px',backgroundColor:'#00bad4',float:'right',marginRight:'10px'}}/>
+					</Paper>
+					<RowLayout >
+						{nodatahtml}
+						{viewnodes}
+					</RowLayout>
+				</div>
 		);
+	},
+	saveJson:function(){
+		AppStore.saveJson();
 	}
 });
 export default RightView;
