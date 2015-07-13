@@ -3,6 +3,7 @@ import React, {PropTypes}from 'react';
 import FBConst from '../stores/FBConst';
 import FormbuilderStore from '../stores/FormbuilderStore';
 import AppActions from '../actions/AppActions';
+import {FloatingActionButton} from 'material-ui';
 
 let ViewFieldView = React.createClass({
 	propTypes:{
@@ -23,9 +24,8 @@ let ViewFieldView = React.createClass({
 		let View = FormbuilderStore.fields[this.props.code].View;
 		let btrclass = 'js-clear ' + FBConst.options.BUTTON_CLASS;
 		let duplicateRemove = (
-			<div className='actions-wrapper'>
-				<a className="js-duplicate fb-button" title="Duplicate Field"><i className='fa fa-plus-circle'></i></a>
-				<a className={btrclass} title="Remove Field"><i className='fa fa-minus-circle'></i></a>
+			<div className='compontctrl-wrapper'>
+				<FloatingActionButton onClick={this.delCommpont} iconClassName='fa fa-minus-circle' mini={true}/>
 			</div>
 		);
 		return (
@@ -43,6 +43,10 @@ let ViewFieldView = React.createClass({
 	focusEditView:function(event){
 		event.stopPropagation();
 		AppActions.createAndShowEditView(this.props.cid);
+	},
+	delCommpont:function(cid){
+		event.stopPropagation();
+		AppActions.delCommpont(this.props.cid);
 	}
 });
 export default ViewFieldView;

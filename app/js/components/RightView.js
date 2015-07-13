@@ -28,7 +28,7 @@ let RightView = React.createClass({
 		this.setState({
 			bootstrapData: data.bootstrapData
 		});
-		this.saveJson();
+		//this.saveJson();
 	},
 	// 组件装载的时候
 	componentDidMount: function() {

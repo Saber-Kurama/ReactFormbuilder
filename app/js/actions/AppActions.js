@@ -7,6 +7,8 @@ let AppActions = Reflux.createActions([
     'create',
     'addRow',
     'getComponts',
-    'changeView'
+    'changeView',
+    'delGrid',
+    'delCommpont'
 ]);
 export default AppActions;

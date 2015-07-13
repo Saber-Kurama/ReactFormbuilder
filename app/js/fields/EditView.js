@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react/addons';
 import FormbuilderStore from '../stores/FormbuilderStore';
 import mui, {TextField, SelectField} from 'material-ui';
+import _ from 'lodash';
 
 let EditView = React.createClass({
 	propTypes:{
@@ -128,20 +129,23 @@ let EditView = React.createClass({
 					if(options.length < 1){
 						
 					}
-					let statekey = this.props.properties[i].codestr;
+					let statekey = _.uniqueId('selectvalue_');
+					let statecode = this.props.properties[i].codestr;
 					let selectValueLink = {
 						value:this.state[this.props.properties[i].codestr],
 						requestChange:function(newvalue){
 							let newobj = {};
-							newobj[statekey] = newvalue
+							newobj[statecode] = newvalue
 							this.setState(newobj);
-							this.properties[statekey] = newvalue;
+							this.properties[statecode] = newvalue;
 							this.props.changeProperties(this.properties);
 						}.bind(this)
 					}
+					console.log('------新的key');
 					elementstr = (
 						<div>
-							<SelectField  
+							<SelectField
+							key = {statekey}
 							ref={this.props.properties[i].codestr} 
 							valueLink = {selectValueLink}
 							//defaultValue={this.props.properties[i].value} 
@@ -189,6 +193,7 @@ let EditView = React.createClass({
 						<TextField  ref={this.props.properties[i].codestr} 
 						valueLink = {textValueLink}
 						//defaultValue={this.props.properties[i].value} onChange={this.changeProperties} floatingLabelText={this.props.properties[i].name} 
+						floatingLabelText={this.props.properties[i].name}
 						style={{width:'100%'}} />
 					</div>
 				);

@@ -11,7 +11,7 @@ let EditFieldView = React.createClass({
 	},
 	componentDidMount: function() {
 		if(this.props.view){
-			this.oldviewcode = this.props.view.code;
+			this.oldviewcid= this.props.view.cid;
 		}
 		
 	},
@@ -28,9 +28,9 @@ let EditFieldView = React.createClass({
 				properties.push(compont.properties[i]);
 			}
 			// 如果 视图 类别更换后  修改key值
-			if(this.oldviewcode != this.props.view.code){
+			if(this.oldviewcid != this.props.view.cid){
 				console.log('产生key');
-				this.oldviewcode  = this.props.view.code;
+				this.oldviewcid  = this.props.view.cid;
 				let keyvalue = _.uniqueId('keyvalue_');
 				this.editkey = keyvalue;
 				editview = (<EditView properties={properties} key={keyvalue} changeProperties={this.changeProperties}/>);

@@ -11,86 +11,10 @@ let AppStore = Reflux.createStore({
 			isEdit:false,
 			view:null
 		},
-		bootstrapData:[
-			{
-				type:'row',
-				code:'row1',
-				htmltemplate:'',
-				icon:'',
-				ilevel:'',
-				name:'一列布局',
-				ordernum:0,
-				parentelemen:'root',
-				showhide:1,
-				properties:{
-					minheight:80,
-					cols:'12'
-				},
-				cid:'001',
-				columns:[
-					{
-						type:'column',
-						properties:{
-							minheight:80,
-							col:12
-						},
-						fields:[
-
-						]
-					}
-				]
-			},
-			{
-				type:'row',
-				code:'row2',
-				stylecss:{
-					minHeight:50
-				},
-				htmltemplate:'',
-				icon:'',
-				ilevel:'',
-				name:'两列布局',
-				ordernum:0,
-				parentelemen:'root',
-				showhide:1,
-				properties:{
-					minheight:80,
-					cols:'6,6'
-				},
-				cid:'002',
-				columns:[
-					{
-						type:'column',
-						properties:{
-							minheight:80,
-							col:6
-						},
-						fields:[
-
-						]
-					},
-					{
-						type:'column',
-						properties:{
-							minheight:80,
-							col:6
-						},
-						fields:[
-
-						]
-					}
-				]
-			}
-			// {
-			// 	'label': 'Please enter your clearance number',
-			// 	'field_type': 'text',
-			// 	'required': true,
-			// 	'field_options': {},
-			// 	'cid': 'c6'
-			// }
-		]
+		bootstrapData:zyuc_config.bootstrapData
 	},
 	init:function(){
+		//alert(zyuc_config.bootstrapData);
 		this.listenToMany(AppActions);
 	},
 	onGetAll:function(){
@@ -139,6 +63,35 @@ let AppStore = Reflux.createStore({
 		//
 		this.setViewByCid(view.cid, view);
 		this.trigger(this.data);
+	},
+	// 删除一行
+	onDelGrid:function(cid){
+		for(let i = 0; i < this.data.bootstrapData.length; i++){
+			//let isfind = false;
+			if(this.data.bootstrapData[i].cid === cid){
+				console.log('-----------删除数据');
+				this.data.bootstrapData.splice(i,1);
+				this.trigger(this.data);
+			}
+		}
+	},
+	// 删除一个组件
+	onDelCommpont:function(cid){
+		for(let i = 0; i < this.data.bootstrapData.length; i++){
+
+			for(let c = 0; c < this.data.bootstrapData[i].columns.length; c++){
+				for(let f = 0; f < this.data.bootstrapData[i].columns[c].fields.length; f++){
+					if(this.data.bootstrapData[i].columns[c].fields[f].cid === cid){
+						this.data.bootstrapData[i].columns[c].fields.splice(f,1);
+						this.trigger(this.data);
+					}
+				}
+			}
+			
+			// if(isfind){
+			// 	break;
+			// }
+		}
 	},
 	// 根据 布局 组件来创建 列组件（临时创建的，不存数据库中的，辅助布局组件）的属性
 	createColumns:function(row){
@@ -222,7 +175,7 @@ let AppStore = Reflux.createStore({
 	saveJson:function(){
 		//alert(this.data.bootstrapData);
 		//let datajson = this.data.bootstrapData; stringify
-		return ;
+		
 		let datastr = JSON.stringify(this.data.bootstrapData);
 		$.ajax({
 			url:zyuc_config.savejsonurl,
