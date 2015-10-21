@@ -32,11 +32,14 @@ let EditView = React.createClass({
 	},
 	properties:{},
 	qsid:null,
+	oldqsid:null,
+	select:{},
 	render:function(){
 		console.log('---------------------------');
 		// 编辑视图的 form表单
 		let inputs = [];
 		let labeltext = '';
+		let changeqsid = false;
 		// 循环 属性
 		for(let i = 0; i < this.props.properties.length; i++){
 			// 赋值 转换成 属性 属性值 的对象
@@ -51,9 +54,9 @@ let EditView = React.createClass({
 			// 定义 input 元素
 			let elementstr = '';
 			//判断属性的影响范围
-			if(this.props.properties[i].scope === 1){
+			//if(this.props.properties[i].scope === 1){
 				// 判断 是不是  查询
-				if(this.props.properties[i].codestr === 'query' ){
+				if(this.props.properties[i].scope === 1 ){
 					let options = [];
 					//options.push(<option >请选择</option>);
 					//options.push({payload:null, text:'请选择'});
@@ -63,12 +66,16 @@ let EditView = React.createClass({
 					}
 					// 这里面有个bug  。。初始化的时候，如果先渲染依赖它的值表单的话就问题，因为初始值为null
 					if(this.props.properties[i].value){
-						this.qsid = this.props.properties[i].value;
+						this.qsid = this.props.properties[i].value;						
 						// 在渲染的过程中 是不能 进行 更新状态的 一开始的时候 就应该知道 选择的数据源是什么
 						// let va = this.props.properties[i].value;
 						// this.setState({
 						// 	qsid: va
 						// });
+					}
+					if(this.qsid != this.oldqsid || !this.oldqsid){
+						changeqsid = true;
+						this.oldqsid = this.qsid;
 					}
 					if(options.length < 1){
 						
@@ -89,7 +96,7 @@ let EditView = React.createClass({
 					elementstr = (
 						<div>
 							<SelectField 
-							ref={this.props.properties[i].codestr}
+							//ref={this.props.properties[i].codestr}
 							valueLink = {selectValueLink}
 							//valueLink={this.linkState(this.props.properties[i].codestr).value}
 							//onChange={function(e){this.changeSelectProps(e, statekey)}.bind(this) }
@@ -109,7 +116,7 @@ let EditView = React.createClass({
 					// 		</select>
 					// 	</div>
 					// );
-				}else{
+				}else if(this.props.properties[i].scope === 2){
 					let options = [], columns;
 					//options.push({payload:null, text:'请选择'});
 					if(this.qsid){
@@ -129,24 +136,33 @@ let EditView = React.createClass({
 					if(options.length < 1){
 						
 					}
-					let statekey = _.uniqueId('selectvalue_');
+					
 					let statecode = this.props.properties[i].codestr;
 					let selectValueLink = {
 						value:this.state[this.props.properties[i].codestr],
 						requestChange:function(newvalue){
 							let newobj = {};
-							newobj[statecode] = newvalue
+							newobj[statecode] = newvalue;
+							
 							this.setState(newobj);
 							this.properties[statecode] = newvalue;
 							this.props.changeProperties(this.properties);
 						}.bind(this)
 					}
-					console.log('------新的key');
+					
+					if(changeqsid) {
+						console.log('------新的key');
+						let statekey = _.uniqueId('selectvalue_');
+						this.select[statecode] = statekey;
+					}else{
+						console.log('------旧的key');
+					}
 					elementstr = (
 						<div>
 							<SelectField
-							key = {statekey}
-							ref={this.props.properties[i].codestr} 
+							key = {this.select[statecode]}
+							//ref={this.props.properties[i].codestr} 
+							multiLine = {true}
 							valueLink = {selectValueLink}
 							//defaultValue={this.props.properties[i].value} 
 							//onChange={this.changeProperties}
@@ -167,7 +183,8 @@ let EditView = React.createClass({
 					// 	</div>
 					// );
 				}
-			}else{
+			//}
+			else{
 				// elementstr = (
 				// 	<div>
 						

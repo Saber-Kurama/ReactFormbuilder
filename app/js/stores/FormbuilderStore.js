@@ -1,8 +1,11 @@
 'use strict';
 import Reflux from 'reflux';
+import React from 'react';
 //import compontlist from './views';
 import AppActions from '../actions/AppActions';
 import _ from 'lodash';
+import EditView from '../fields/EditView';
+
 let FormbuilderStore = Reflux.createStore({
 	fields:{},
 	compontlist:[],
@@ -16,6 +19,7 @@ let FormbuilderStore = Reflux.createStore({
 		this.qs = zyuc_qs;
 		this.config = zyuc_config;
 		this.compontlist = zyuc_compontlist;
+		this.createComponts(this.compontlist);
 		this.trigger(zyuc_compontlist);//
 	},
 	// 注册 组件 主要是注册组件的 view 和 editview
@@ -41,6 +45,26 @@ let FormbuilderStore = Reflux.createStore({
 
 		//return Object.assign({}, common);
 		return _.cloneDeep(common);
+	},
+	createComponts:function(compontlist){
+		for(let i = 0; i < compontlist.length; i++){
+			if(compontlist[i].code === "row"){
+				continue;
+			}
+			for(let j = 0; j < compontlist[i].viewitems.length; j++){
+				let Row2View = React.createClass({
+					render:function(){
+						return (
+							<div dangerouslySetInnerHTML={{__html:compontlist[i].viewitems[j].htmltemplate}} >
+							</div>);
+					}
+				});
+				FormbuilderStore.registerField(compontlist[i].viewitems[j].code, {
+					View: Row2View,
+					Edit: EditView
+				});
+			}
+		}
 	}
 });
 export default FormbuilderStore;

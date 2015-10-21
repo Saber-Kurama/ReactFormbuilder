@@ -3,7 +3,7 @@ import React, {PropTypes}from 'react';
 import FBConst from '../stores/FBConst';
 import FormbuilderStore from '../stores/FormbuilderStore';
 import AppActions from '../actions/AppActions';
-import {FloatingActionButton} from 'material-ui';
+import {FloatingActionButton, IconButton, FontIcon} from 'material-ui';
 
 let ViewFieldView = React.createClass({
 	propTypes:{
@@ -25,7 +25,9 @@ let ViewFieldView = React.createClass({
 		let btrclass = 'js-clear ' + FBConst.options.BUTTON_CLASS;
 		let duplicateRemove = (
 			<div className='compontctrl-wrapper'>
-				<FloatingActionButton onClick={this.delCommpont} iconClassName='fa fa-minus-circle' mini={true}/>
+				<IconButton onClick={this.delCommpont} >
+					<FontIcon className='fa fa-minus-circle' />
+				</IconButton>
 			</div>
 		);
 		return (

@@ -1,6 +1,7 @@
 'use strict';
 var zyuc_config = {
 	savejsonurl:'http://localhost:3000',
+	runurl:'http://www.baidu.com',
 	bootstrapData:[
 			{
 				type:'row',

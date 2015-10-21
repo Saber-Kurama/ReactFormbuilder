@@ -10,6 +10,7 @@ let GridInner = React.createClass({
 		col:PropTypes.number.isRequired
 	},
 	render: function() {
+		console.log("=col-sm"+this.props.col);
 		let classes = classNames(this.props.className, 'col-xs-12', 'col-sm-' + this.props.col);
 		let style = {
 			// borderWidth:1,

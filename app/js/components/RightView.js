@@ -83,7 +83,11 @@ let RightView = React.createClass({
 		return (
 				<div>
 					<Paper style={papertopstyle}>
+
 						<FlatButton label="保存"  onClick={this.saveJson}
+						style={{height:'48px',backgroundColor:'#00bad4',float:'right',marginRight:'10px'}}/>
+
+						<FlatButton label="运行时"  onClick={this.run}
 						style={{height:'48px',backgroundColor:'#00bad4',float:'right',marginRight:'10px'}}/>
 					</Paper>
 					<RowLayout >
@@ -93,8 +97,16 @@ let RightView = React.createClass({
 				</div>
 		);
 	},
-	saveJson:function(){
+	saveJson:function(e){
+		e.stopPropagation();
 		AppStore.saveJson();
+
+	},
+	run:function(e){
+		e.stopPropagation();
+		console.log('运行时');
+		//window.location.href="http://www.baidu.com";
+		window.open(zyuc_config.runurl,"_blank");
 	}
 });
 export default RightView;

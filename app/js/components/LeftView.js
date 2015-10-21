@@ -65,11 +65,11 @@ let LeftView = React.createClass({
 		});
 		
 		return (
-			<Tabs  ref="leftTabs" initialSelectedIndex={this.state.tabindex} >
-				<Tab label='添加新组件'>
+			<Tabs  ref="leftTabs" contentContainerStyle={{height:"100%",overflowY:"auto"}} style={{height:"100%",overflowY:"auto"}}  initialSelectedIndex={this.state.tabindex} >
+				<Tab label='添加新组件' style={{height:"100%"}}>
 					<AddFieldTabView inputFields = {this.state.inputFields} />
 				</Tab>
-				<Tab label='编辑组件'>
+				<Tab label='编辑组件' style={{height:"100%"}}>
 					<EditFieldView view={this.state.view} changeView={this.changeView}/>
 				</Tab>
 			</Tabs>

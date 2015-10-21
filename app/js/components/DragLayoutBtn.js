@@ -48,7 +48,7 @@ let DragLayoutBtn = React.createClass({
 		return (
 			connectDragSource(
 				/*a data-field-type={name} className="fb-button ui-draggable">{name}</a>*/
-        <RaisedButton data-field-type={name} label={name} style={{width:'140px', margin:5}}/>
+        <RaisedButton data-field-type={name} label={name} style={{width:'130px', margin:5}}/>
 			)
 		);
 	}
